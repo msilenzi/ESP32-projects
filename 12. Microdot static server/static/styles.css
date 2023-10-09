@@ -1,0 +1,68 @@
+:root {
+  --white: #fff;
+  --grey-white: #f0f0f0;
+  --black: #1f1f1f;
+}
+
+body {
+  background-color: var(--grey-white);
+  font-family: 'Nunito Sans', sans-serif;
+  height: 100vh;
+  color: var(--black);
+}
+
+.main-container {
+  background: var(--white);
+  padding: 3.2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 4rem -1.6rem rgba(0, 0, 0, 0.3);
+}
+
+.flex-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-title {
+  margin: 0;
+  text-align: center;
+}
+
+.counters-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 3.2rem;
+}
+
+.counter-item {
+  flex-direction: column;
+}
+
+.counter {
+  font-size: 4.8rem;
+  font-family: 'Roboto Mono', monospace;
+  margin: 1rem 0;
+  text-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.3);
+}
+
+.btn-counter {
+  background-color: var(--black);
+  color: var(--white);
+  border: none;
+  padding: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.5rem 0.5rem -0.25rem rgba(0, 0, 0, 0.3);
+  transition: 0.2s ease-in-out all;
+}
+
+.btn-counter:hover {
+  box-shadow: 0 0.5rem 1rem -0.25rem rgba(0, 0, 0, 0.3);
+}
+
+.btn-counter:active {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
+}
