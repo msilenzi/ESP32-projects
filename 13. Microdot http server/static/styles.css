@@ -66,3 +66,9 @@ body {
 .btn-counter:active {
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
 }
+
+.btn-counter:disabled {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
+  background-color: #a8a8a8;
+  cursor: not-allowed;
+}
