@@ -1,0 +1,31 @@
+:root {
+  --white: #fff;
+  --grey-white: #f0f0f0;
+  --black: #1f1f1f;
+}
+
+body {
+  background-color: var(--grey-white);
+  font-family: 'Nunito Sans', sans-serif;
+  height: 100vh;
+  color: var(--black);
+}
+
+.main-container {
+  background: var(--white);
+  padding: 3.2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 4rem -1.6rem rgba(0, 0, 0, 0.3);
+}
+
+.flex-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-title {
+  margin: 0;
+  text-align: center;
+}
+
