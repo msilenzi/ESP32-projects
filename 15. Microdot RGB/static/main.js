@@ -3,6 +3,21 @@ let rgbColor = { red: 128, green: 128, blue: 128 }
 const $inputsNumber = document.querySelectorAll('input[type="number"]')
 const $inputsRange = document.querySelectorAll('input[type="range"]')
 
+async function fetchColor() {
+  const resp = await fetch('/led_rgb')
+  const data = await resp.json()
+  rgbColor = data
+  updateColor()
+}
+
+async function submitColor() {
+  fetch('/led_rgb', {
+    method: 'POST',
+    body: JSON.stringify(rgbColor),
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
 function updateBodyBackground() {
   const rgb = `rgb(${rgbColor.red}, ${rgbColor.green}, ${rgbColor.blue})`
   document.body.style.backgroundColor = rgb
@@ -13,52 +28,32 @@ function updateInputValues() {
   $inputsRange.forEach((i) => (i.value = rgbColor[i.dataset.channel]))
 }
 
-async function getColor() {
-  const resp = await fetch('/led_rgb')
-  const data = await resp.json()
-  return data
-}
-
-async function updateColor() {
-  rgbColor = await getColor()
+function updateColor() {
   updateBodyBackground()
   updateInputValues()
 }
 
-$inputsRange.forEach((input) => {
-  input.addEventListener('input', (e) => {
-    const parsedValue = parseInt(e.target.value, 10)
-    rgbColor[e.target.dataset.channel] = parsedValue
-    e.target.parentNode.querySelector('.range-item__value').value = parsedValue
-    updateBodyBackground()
-  })
-})
+function inputHandler(e) {
+  const parsedValue = parseInt(e.target.value, 10)
+  rgbColor[e.target.dataset.channel] = parsedValue
+  updateColor()
+}
 
-$inputsNumber.forEach((input) => {
-  input.addEventListener('input', (e) => {
-    const parsedValue = parseInt(e.target.value, 10)
-    rgbColor[e.target.dataset.channel] = parsedValue
-    e.target.parentNode.querySelector('input[type="range"]').value = parsedValue
-    updateBodyBackground()
-  })
-})
+$inputsRange.forEach((input) => input.addEventListener('input', inputHandler))
+$inputsNumber.forEach((input) => input.addEventListener('input', inputHandler))
 
 document.querySelector('#btn-submit').addEventListener('click', async (e) => {
   e.preventDefault()
   e.target.disabled = true
-  await fetch('/led_rgb', {
-    method: 'POST',
-    body: JSON.stringify(rgbColor),
-    headers: { 'Content-Type': 'application/json' },
-  })
+  await submitColor()
   e.target.disabled = false
 })
 
 document.querySelector('#btn-update').addEventListener('click', async (e) => {
   e.preventDefault()
   e.target.disabled = true
-  await updateColor()
+  await fetchColor()
   e.target.disabled = false
 })
 
-document.addEventListener('DOMContentLoaded', updateColor)
+document.addEventListener('DOMContentLoaded', fetchColor)
