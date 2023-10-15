@@ -1,13 +1,10 @@
 from pin_rgb import PinRGB
-from machine import Pin, PWM
-
 
 class LedRGB:
     def __init__(self, pin_r: int, pin_g: int, pin_b: int, is_common_anode: bool):
         self._red = PinRGB(pin_r, is_common_anode)
         self._green = PinRGB(pin_g, is_common_anode)
         self._blue = PinRGB(pin_b, is_common_anode)
-        self._is_common_anode = is_common_anode
         self.turn_off()
 
     def set_red(self, color: int):

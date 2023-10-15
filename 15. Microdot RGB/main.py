@@ -19,6 +19,7 @@ app = Microdot()
 Response.default_content_type = "text/html"
 
 led = LedRGB(5, 18, 19, True)
+led.set_rgb(156, 108, 172)
 
 
 # API
@@ -34,7 +35,7 @@ async def set_rgb_red(request):
     rgb_color = request.json
     if is_valid_rgb(rgb_color):
         led.set_rgb(rgb_color["red"], rgb_color["green"], rgb_color["blue"])
-        return led.get_rgb()
+        return Response(status_code=204)
     else:
         return {"error": "Invalid rgb color"}, 400
 
