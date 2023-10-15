@@ -1,3 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
 :root {
   --white: #fff;
   --grey-white: #f0f0f0;
@@ -16,6 +25,7 @@ body {
   padding: 3.2rem;
   border-radius: 0.5rem;
   box-shadow: 0 0 4rem -1.6rem rgba(0, 0, 0, 0.3);
+  min-width: 360px;
 }
 
 .flex-centered {
@@ -29,3 +39,264 @@ body {
   text-align: center;
 }
 
+.ranges-list {
+  margin: 1.5rem 0;
+}
+
+.range-item {
+  display: grid;
+  grid-template-columns: 1fr 7fr 2fr;
+  align-items: center;
+  font-size: 1.5rem;
+  gap: 0.5em;
+}
+
+.range-item__value {
+  text-align: right;
+  margin: 0;
+  border: none;
+}
+
+.range-item--red,
+.range-item--red input[type='range'],
+.range-item--red input[type='number'] {
+  color: #ef233c;
+}
+
+.range-item--green,
+.range-item--green input[type='range'],
+.range-item--green input[type='number'] {
+  color: #24f050;
+}
+
+.range-item--blue,
+.range-item--blue input[type='range'],
+.range-item--blue input[type='number'] {
+  color: #2442f0;
+}
+
+.ranges-btns {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.btn {
+  border: none;
+  outline: 0;
+  cursor: pointer;
+  transition: 0.2s ease-in-out all;
+}
+
+.btn-update {
+  display: inline;
+  background: transparent;
+  text-decoration: underline;
+}
+
+.btn-update:hover {
+  color: #333;
+}
+
+.btn-update:disabled {
+  color: #a8a8a8;
+}
+
+.btn-submit {
+  background-color: var(--black);
+  color: var(--white);
+  padding: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.5rem 0.5rem -0.25rem rgba(0, 0, 0, 0.3);
+}
+
+.btn-submit:hover {
+  box-shadow: 0 0.5rem 1rem -0.25rem rgba(0, 0, 0, 0.3);
+}
+
+.btn-submit:active {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-submit:disabled {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
+  background-color: #a8a8a8;
+  cursor: not-allowed;
+}
+
+
+/* Hide input number arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+
+/***********************************************************
+https://codepen.io/ShadowShahriar/pen/zYPPYrQ?editors=1100
+***********************************************************/
+
+/* === range theme and appearance === */
+input[type='range'] {
+  color: #333;
+  font-size: 1rem;
+  width: 12.5em;
+}
+
+input[type='range'] {
+  --thumb-height: 1.125em;
+  --track-height: 0.125em;
+  --track-color: rgba(0, 0, 0, 0.2);
+  --brightness-hover: 180%;
+  --brightness-down: 80%;
+  --clip-edges: 0.125em;
+}
+
+/* === range commons === */
+input[type='range'] {
+  position: relative;
+  background: #fff0;
+  overflow: hidden;
+  width: 100%;
+}
+
+input[type='range']:active {
+  cursor: grabbing;
+}
+
+input[type='range']:disabled {
+  filter: grayscale(1);
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* === WebKit specific styles === */
+input[type='range'],
+input[type='range']::-webkit-slider-runnable-track,
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  transition: all ease 100ms;
+  height: var(--thumb-height);
+}
+
+input[type='range']::-webkit-slider-runnable-track,
+input[type='range']::-webkit-slider-thumb {
+  position: relative;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  --thumb-radius: calc((var(--thumb-height) * 0.5) - 1px);
+  --clip-top: calc((var(--thumb-height) - var(--track-height)) * 0.5 - 0.5px);
+  --clip-bottom: calc(var(--thumb-height) - var(--clip-top));
+  --clip-further: calc(100% + 1px);
+  --box-fill: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0
+    100vmax currentColor;
+
+  width: var(--thumb-width, var(--thumb-height));
+  background: linear-gradient(currentColor 0 0) scroll no-repeat left center /
+    50% calc(var(--track-height) + 1px);
+  background-color: currentColor;
+  box-shadow: var(--box-fill);
+  border-radius: var(--thumb-width, var(--thumb-height));
+
+  filter: brightness(100%);
+  clip-path: polygon(
+    100% -1px,
+    var(--clip-edges) -1px,
+    0 var(--clip-top),
+    -100vmax var(--clip-top),
+    -100vmax var(--clip-bottom),
+    0 var(--clip-bottom),
+    var(--clip-edges) 100%,
+    var(--clip-further) var(--clip-further)
+  );
+}
+
+input[type='range']:hover::-webkit-slider-thumb {
+  filter: brightness(var(--brightness-hover));
+  cursor: grab;
+}
+
+input[type='range']:active::-webkit-slider-thumb {
+  filter: brightness(var(--brightness-down));
+  cursor: grabbing;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  background: linear-gradient(var(--track-color) 0 0) scroll no-repeat center /
+    100% calc(var(--track-height) + 1px);
+}
+
+input[type='range']:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+
+/* === Firefox specific styles === */
+input[type='range'],
+input[type='range']::-moz-range-track,
+input[type='range']::-moz-range-thumb {
+  appearance: none;
+  transition: all ease 100ms;
+  height: var(--thumb-height);
+}
+
+input[type='range']::-moz-range-track,
+input[type='range']::-moz-range-thumb,
+input[type='range']::-moz-range-progress {
+  background: #fff0;
+}
+
+input[type='range']::-moz-range-thumb {
+  background: currentColor;
+  border: 0;
+  width: var(--thumb-width, var(--thumb-height));
+  border-radius: var(--thumb-width, var(--thumb-height));
+  cursor: grab;
+}
+
+input[type='range']:active::-moz-range-thumb {
+  cursor: grabbing;
+}
+
+input[type='range']::-moz-range-track {
+  width: 100%;
+  background: var(--track-color);
+}
+
+input[type='range']::-moz-range-progress {
+  appearance: none;
+  background: currentColor;
+  transition-delay: 30ms;
+}
+
+input[type='range']::-moz-range-track,
+input[type='range']::-moz-range-progress {
+  height: calc(var(--track-height) + 1px);
+  border-radius: var(--track-height);
+}
+
+input[type='range']::-moz-range-thumb,
+input[type='range']::-moz-range-progress {
+  filter: brightness(100%);
+}
+
+input[type='range']:hover::-moz-range-thumb,
+input[type='range']:hover::-moz-range-progress {
+  filter: brightness(var(--brightness-hover));
+}
+
+input[type='range']:active::-moz-range-thumb,
+input[type='range']:active::-moz-range-progress {
+  filter: brightness(var(--brightness-down));
+}
+
+input[type='range']:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+}
